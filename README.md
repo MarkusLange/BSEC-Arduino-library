@@ -131,6 +131,20 @@ Should be,
 recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}"  "-L{build.path}" {compiler.c.elf.flags} {compiler.c.elf.extra_flags} "-T{build.variant.path}/{build.ldscript}" "-Wl,-Map,{build.path}/{build.project_name}.map" --specs=nano.specs --specs=nosys.specs {compiler.ldflags} -o "{build.path}/{build.project_name}.elf" {object_files} -Wl,--start-group {compiler.arm.cmsis.ldflags} -lm "{build.path}/{archive_file}" {compiler.libraries.ldflags} -Wl,--end-group
 ```
 
+#### Teensy core
+
+Original line 58,
+```
+## Link
+recipe.c.combine.pattern="{compiler.path}{build.toolchain}{build.command.linker}" {build.flags.optimize} {build.flags.ld} {build.flags.ldspecs} {build.flags.cpu} -o "{build.path}/{build.project_name}.elf" {object_files} "{build.path}/{archive_file}" "-L{build.path}" {build.flags.libs}
+```
+Should be,
+```
+## Link
+compiler.libraries.ldflags=
+recipe.c.combine.pattern="{compiler.path}{build.toolchain}{build.command.linker}" {build.flags.optimize} {build.flags.ld} {build.flags.ldspecs} {build.flags.cpu} -o "{build.path}/{build.project_name}.elf" {object_files} "{build.path}/{archive_file}" {compiler.libraries.ldflags} "-L{build.path}" {build.flags.libs}
+```
+
 ### 4. Verify and upload the example code
 
 Start or restart the Arduino IDE. Open the example code found under ```File>Examples>Bsec software library>Basic```.
@@ -151,5 +165,12 @@ The current list of tested boards include,
 | Cortex-m4 with FPU | Adafruit BlueFruit NRF52 Feather | Upstream of v0.10.1 SHA-1 hash 11614dae701a35f905d09792c7388d648b125369 | https://github.com/adafruit/Adafruit_nRF52_Arduino |
 | Esp32 | Sparkfun ESP32 Thing | v1.0.3-rc1 | https://github.com/espressif/arduino-esp32 |
 | Esp8266 | Adafruit Feather HUZZAH | Upstream of v2.5.1 SHA-1 hash 625c3a62c4991347e8298fb5e4021bc6f6df7099 | https://github.com/esp8266/Arduino |
+| Cortex-m4 | Teensy 3.0 | Teensyduino Version 1.58 for Arduino 2.x | https://github.com/PaulStoffregen/cores |
+| Cortex-m4 | Teensy 3.1 | Teensyduino Version 1.58 for Arduino 2.x | https://github.com/PaulStoffregen/cores |
+| Cortex-m4 | Teensy 3.2 | Teensyduino Version 1.58 for Arduino 2.x | https://github.com/PaulStoffregen/cores |
+| Cortex-m4 with FPU | Teensy 3.5 | Teensyduino Version 1.58 for Arduino 2.x | https://github.com/PaulStoffregen/cores |
+| Cortex-m4 with FPU | Teensy 3.6 | Teensyduino Version 1.58 for Arduino 2.x | https://github.com/PaulStoffregen/cores |
+| Cortex-m7 | Teensy 4.0 | Teensyduino Version 1.58 for Arduino 2.x | https://github.com/PaulStoffregen/cores |
+| Cortex-m7 | Teensy 4.1 | Teensyduino Version 1.58 for Arduino 2.x | https://github.com/PaulStoffregen/cores |
 
 ## Copyright (C) 2020 Bosch Sensortec GmbH. All rights reserved.
