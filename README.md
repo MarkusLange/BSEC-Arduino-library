@@ -1,4 +1,4 @@
-# Instructions for using the BSEC Arduino Library in Arduino 1.8.13
+# Instructions for using the BSEC Arduino Library in Arduino 1.8.13, 2.x
 
 ## About BSEC
 
